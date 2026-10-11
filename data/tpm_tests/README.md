@@ -15,3 +15,4 @@ summarised in Appendix H of the report. Add one file per test, for example
 | TPM_05 Motion audio response time | [TPM_05_motion_audio_response_time](TPM_05_motion_audio_response_time/) | Done |
 | TPM_06 Clash detection response time | [TPM_06_clash_detection_response_time](TPM_06_clash_detection_response_time/) | Done |
 | TPM_08 Clash response time | [TPM_08_clash_response_time](TPM_08_clash_response_time/) | Done |
+| TPM_10 Deactivation time | [TPM_10_deactivation_time](TPM_10_deactivation_time/) | Done |

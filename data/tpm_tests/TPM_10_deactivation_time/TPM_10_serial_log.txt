@@ -1,0 +1,14 @@
+TPM_10 deactivation time - Serial Monitor output (115200 baud), 2026-10-11
+Firmware: Lightsaber_Main.ino with TIMING_TEST = 10
+Only the timing lines are listed.
+
+TPM_10 trial 1: press -> first retraction LED frame = 820.6 ms
+TPM_10 trial 2: press -> first retraction LED frame = 823.1 ms
+TPM_10 trial 3: press -> first retraction LED frame = 811.4 ms
+TPM_10 trial 4: press -> first retraction LED frame = 820.5 ms
+TPM_10 trial 5: press -> first retraction LED frame = 809.1 ms
+TPM_10 trial 6: press -> first retraction LED frame = 832.3 ms
+TPM_10 trial 7: press -> first retraction LED frame = 820.6 ms
+TPM_10 trial 8: press -> first retraction LED frame = 820.4 ms
+TPM_10 trial 9: press -> first retraction LED frame = 830.4 ms
+TPM_10 trial 10: press -> first retraction LED frame = 809.2 ms
