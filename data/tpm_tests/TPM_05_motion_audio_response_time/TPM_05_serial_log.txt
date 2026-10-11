@@ -1,0 +1,24 @@
+TPM_05 motion audio response time - Serial Monitor output (115200 baud), 2026-10-11
+Firmware: Lightsaber_Main.ino with TIMING_TEST = 5
+
+TPM_05 swing 1: detect -> sound written = 205.3 ms, buffer = 69.7 ms, detect -> speaker = 275.0 ms, onset -> speaker = 321.3 ms
+LED: BLADE ON - IGNITION COMPLETE
+TPM_05 swing 2: detect -> sound written = 62.6 ms, buffer = 69.7 ms, detect -> speaker = 132.3 ms, onset -> speaker = 221.7 ms
+TPM_05 swing 3: detect -> sound written = 61.5 ms, buffer = 92.9 ms, detect -> speaker = 154.4 ms, onset -> speaker = 209.5 ms
+TPM_05 swing 4: detect -> sound written = 63.6 ms, buffer = 92.9 ms, detect -> speaker = 156.5 ms, onset -> speaker = 276.1 ms
+TPM_05 swing 5: detect -> sound written = 0.1 ms, buffer = 92.9 ms, detect -> speaker = 93.0 ms, onset -> speaker = 127.9 ms
+TPM_05 swing 6: detect -> sound written = 70.2 ms, buffer = 81.3 ms, detect -> speaker = 151.5 ms, onset -> speaker = 230.4 ms
+TPM_05 swing 7: detect -> sound written = 63.0 ms, buffer = 92.9 ms, detect -> speaker = 155.9 ms, onset -> speaker = 245.3 ms
+TPM_05 swing 8: detect -> sound written = 0.2 ms, buffer = 92.9 ms, detect -> speaker = 93.0 ms, onset -> speaker = 123.8 ms
+TPM_05 swing 9: detect -> sound written = 65.1 ms, buffer = 81.3 ms, detect -> speaker = 146.3 ms, onset -> speaker = 239.2 ms
+TPM_05 swing 10: detect -> sound written = 23.8 ms, buffer = 92.9 ms, detect -> speaker = 116.7 ms, onset -> speaker = 198.3 ms
+TPM_05 swing 11: detect -> sound written = 88.2 ms, buffer = 81.3 ms, detect -> speaker = 169.4 ms, onset -> speaker = 262.0 ms
+TPM_05 swing 12: detect -> sound written = 100.5 ms, buffer = 69.7 ms, detect -> speaker = 170.1 ms, onset -> speaker = 255.3 ms
+TPM_05 swing 13: detect -> sound written = 64.5 ms, buffer = 81.3 ms, detect -> speaker = 145.8 ms, onset -> speaker = 226.7 ms
+TPM_05 swing 14: detect -> sound written = 0.2 ms, buffer = 81.3 ms, detect -> speaker = 81.4 ms, onset -> speaker = 118.0 ms
+TPM_05 swing 15: detect -> sound written = 0.1 ms, buffer = 92.9 ms, detect -> speaker = 93.0 ms, onset -> speaker = 106.7 ms
+TPM_05 swing 16: detect -> sound written = 74.0 ms, buffer = 92.9 ms, detect -> speaker = 166.9 ms, onset -> speaker = 232.9 ms
+TPM_05 swing 17: detect -> sound written = 0.2 ms, buffer = 81.3 ms, detect -> speaker = 81.4 ms, onset -> speaker = 81.5 ms
+TPM_05 swing 18: detect -> sound written = 69.9 ms, buffer = 92.9 ms, detect -> speaker = 162.8 ms, onset -> speaker = 214.0 ms
+TPM_05 swing 19: detect -> sound written = 99.3 ms, buffer = 81.3 ms, detect -> speaker = 180.6 ms, onset -> speaker = 232.4 ms
+TPM_05 swing 20: detect -> sound written = 87.8 ms, buffer = 92.9 ms, detect -> speaker = 180.7 ms, onset -> speaker = 238.9 ms
