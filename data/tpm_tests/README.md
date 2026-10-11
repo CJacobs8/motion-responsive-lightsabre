@@ -9,3 +9,4 @@ summarised in Appendix H of the report. Add one file per test, for example
 | Test | Folder | Status |
 |---|---|---|
 | TPM_01 Activation time | [TPM_01_activation_time](TPM_01_activation_time/) | Done |
+| TPM_03 Motion detection response time | [TPM_03_motion_response_time](TPM_03_motion_response_time/) | Done |

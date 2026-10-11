@@ -1,0 +1,63 @@
+TPM_03 motion detection response time - Serial Monitor output (115200 baud), 2026-10-11
+Firmware: Lightsaber_Main.ino with TIMING_TEST = 3, gyro calibration on
+
+>>> SWING START
+TPM_03 swing 1: motion onset -> swing state = 50.9 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 2: motion onset -> swing state = 46.3 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 3: motion onset -> swing state = 73.4 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 4: motion onset -> swing state = 19.4 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 5: motion onset -> swing state = 12.2 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 6: motion onset -> swing state = 53.8 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 7: motion onset -> swing state = 41.6 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 8: motion onset -> swing state = 39.8 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 9: motion onset -> swing state = 116.3 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 10: motion onset -> swing state = 86.0 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 11: motion onset -> swing state = 92.8 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 12: motion onset -> swing state = 93.1 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 13: motion onset -> swing state = 81.1 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 14: motion onset -> swing state = 104.6 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 15: motion onset -> swing state = 64.8 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 16: motion onset -> swing state = 62.5 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 17: motion onset -> swing state = 0.2 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 18: motion onset -> swing state = 74.5 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 19: motion onset -> swing state = 28.6 ms
+>>> SWING STOP
+>>> SWING START
+TPM_03 swing 20: motion onset -> swing state = 58.5 ms
+>>> SWING STOP
