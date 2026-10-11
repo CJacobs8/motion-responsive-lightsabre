@@ -1,0 +1,63 @@
+TPM_06 / TPM_08 - Serial Monitor output (115200 baud), 2026-10-11
+Firmware: Lightsaber_Main.ino with TIMING_TEST = 6, blade on, 20 clashes
+
+TPM_06 clash 1: impact -> detected = 4.0 ms, detected -> sound written = 0.2 ms, buffer = 81.3 ms, impact -> speaker = 85.5 ms, jump = 1.9 g
+CLASH ZONE: TOP  p=0.01/0.01/0.98  peak=5.39g  t_classify=5669us  t_since_trigger=136ms
+TPM_08 clash 1: impact -> zone glow on blade = 144.4 ms, zone = TOP
+TPM_06 clash 2: impact -> detected = 6.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 87.5 ms, jump = 1.2 g
+CLASH ZONE: TOP  p=0.05/0.01/0.93  peak=4.53g  t_classify=5295us  t_since_trigger=126ms
+TPM_08 clash 2: impact -> zone glow on blade = 139.0 ms, zone = TOP
+TPM_06 clash 3: impact -> detected = 18.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 99.6 ms, jump = 1.3 g
+CLASH ZONE: TOP  p=0.04/0.01/0.95  peak=3.77g  t_classify=5282us  t_since_trigger=114ms
+TPM_08 clash 3: impact -> zone glow on blade = 121.5 ms, zone = TOP
+TPM_06 clash 4: impact -> detected = 14.0 ms, detected -> sound written = 0.2 ms, buffer = 69.7 ms, impact -> speaker = 83.9 ms, jump = 3.6 g
+CLASH ZONE: TOP  p=0.01/0.01/0.98  peak=5.30g  t_classify=5261us  t_since_trigger=116ms
+TPM_08 clash 4: impact -> zone glow on blade = 116.8 ms, zone = TOP
+TPM_06 clash 5: impact -> detected = 4.0 ms, detected -> sound written = 0.2 ms, buffer = 81.3 ms, impact -> speaker = 85.5 ms, jump = 1.9 g
+CLASH ZONE: TOP  p=0.12/0.02/0.87  peak=4.81g  t_classify=5276us  t_since_trigger=116ms
+TPM_08 clash 5: impact -> zone glow on blade = 118.4 ms, zone = TOP
+TPM_06 clash 6: impact -> detected = 4.0 ms, detected -> sound written = 0.3 ms, buffer = 69.7 ms, impact -> speaker = 73.9 ms, jump = 4.8 g
+CLASH ZONE: BOTTOM  p=0.99/0.01/0.00  peak=5.52g  t_classify=5273us  t_since_trigger=112ms
+TPM_08 clash 6: impact -> zone glow on blade = 116.2 ms, zone = BOTTOM
+TPM_06 clash 7: impact -> detected = 28.0 ms, detected -> sound written = 0.3 ms, buffer = 69.7 ms, impact -> speaker = 97.9 ms, jump = 3.6 g
+CLASH ZONE: BOTTOM  p=0.92/0.04/0.04  peak=4.55g  t_classify=5277us  t_since_trigger=122ms
+TPM_08 clash 7: impact -> zone glow on blade = 127.4 ms, zone = BOTTOM
+TPM_06 clash 8: impact -> detected = 4.0 ms, detected -> sound written = 0.3 ms, buffer = 92.9 ms, impact -> speaker = 97.1 ms, jump = 3.0 g
+CLASH ZONE: BOTTOM  p=0.91/0.04/0.05  peak=4.76g  t_classify=5269us  t_since_trigger=124ms
+TPM_08 clash 8: impact -> zone glow on blade = 131.8 ms, zone = BOTTOM
+TPM_06 clash 9: impact -> detected = 0.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 81.5 ms, jump = 2.5 g
+CLASH ZONE: BOTTOM  p=0.96/0.03/0.01  peak=4.10g  t_classify=5281us  t_since_trigger=148ms
+TPM_08 clash 9: impact -> zone glow on blade = 158.3 ms, zone = BOTTOM
+TPM_06 clash 10: impact -> detected = 20.0 ms, detected -> sound written = 0.3 ms, buffer = 92.9 ms, impact -> speaker = 113.2 ms, jump = 3.4 g
+CLASH ZONE: BOTTOM  p=0.93/0.07/0.00  peak=4.39g  t_classify=5272us  t_since_trigger=114ms
+TPM_08 clash 10: impact -> zone glow on blade = 117.8 ms, zone = BOTTOM
+TPM_06 clash 11: impact -> detected = 4.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 85.5 ms, jump = 5.1 g
+CLASH ZONE: BOTTOM  p=0.97/0.02/0.01  peak=5.72g  t_classify=5281us  t_since_trigger=122ms
+TPM_08 clash 11: impact -> zone glow on blade = 129.5 ms, zone = BOTTOM
+TPM_06 clash 12: impact -> detected = 8.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 89.5 ms, jump = 3.9 g
+CLASH ZONE: BOTTOM  p=0.93/0.04/0.03  peak=4.62g  t_classify=5268us  t_since_trigger=136ms
+TPM_08 clash 12: impact -> zone glow on blade = 145.1 ms, zone = BOTTOM
+TPM_06 clash 13: impact -> detected = 0.0 ms, detected -> sound written = 0.2 ms, buffer = 92.9 ms, impact -> speaker = 93.1 ms, jump = 1.3 g
+CLASH ZONE: TOP  p=0.31/0.10/0.59  peak=4.18g  t_classify=5298us  t_since_trigger=136ms
+TPM_08 clash 13: impact -> zone glow on blade = 150.3 ms, zone = TOP
+TPM_06 clash 14: impact -> detected = 6.0 ms, detected -> sound written = 0.2 ms, buffer = 92.9 ms, impact -> speaker = 99.1 ms, jump = 2.5 g
+CLASH ZONE: TOP  p=0.05/0.18/0.77  peak=3.95g  t_classify=5283us  t_since_trigger=128ms
+TPM_08 clash 14: impact -> zone glow on blade = 139.0 ms, zone = TOP
+TPM_06 clash 15: impact -> detected = 10.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 91.6 ms, jump = 2.0 g
+CLASH ZONE: TOP  p=0.24/0.11/0.66  peak=3.19g  t_classify=5282us  t_since_trigger=130ms
+TPM_08 clash 15: impact -> zone glow on blade = 137.0 ms, zone = TOP
+TPM_06 clash 16: impact -> detected = 2.0 ms, detected -> sound written = 0.3 ms, buffer = 92.9 ms, impact -> speaker = 95.1 ms, jump = 2.3 g
+CLASH ZONE: TOP  p=0.01/0.00/0.99  peak=3.88g  t_classify=5271us  t_since_trigger=132ms
+TPM_08 clash 16: impact -> zone glow on blade = 140.2 ms, zone = TOP
+TPM_06 clash 17: impact -> detected = 20.0 ms, detected -> sound written = 0.2 ms, buffer = 81.3 ms, impact -> speaker = 101.5 ms, jump = 1.8 g
+CLASH ZONE: TOP  p=0.01/0.02/0.97  peak=3.07g  t_classify=5276us  t_since_trigger=126ms
+TPM_08 clash 17: impact -> zone glow on blade = 134.1 ms, zone = TOP
+TPM_06 clash 18: impact -> detected = 12.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 93.6 ms, jump = 2.4 g
+CLASH ZONE: BOTTOM  p=0.92/0.07/0.00  peak=4.03g  t_classify=5267us  t_since_trigger=130ms
+TPM_08 clash 18: impact -> zone glow on blade = 140.4 ms, zone = BOTTOM
+TPM_06 clash 19: impact -> detected = 10.0 ms, detected -> sound written = 0.2 ms, buffer = 81.3 ms, impact -> speaker = 91.5 ms, jump = 4.7 g
+CLASH ZONE: BOTTOM  p=0.86/0.12/0.03  peak=5.71g  t_classify=5270us  t_since_trigger=128ms
+TPM_08 clash 19: impact -> zone glow on blade = 137.6 ms, zone = BOTTOM
+TPM_06 clash 20: impact -> detected = 16.0 ms, detected -> sound written = 0.3 ms, buffer = 81.3 ms, impact -> speaker = 97.5 ms, jump = 3.6 g
+CLASH ZONE: BOTTOM  p=0.86/0.13/0.01  peak=6.52g  t_classify=5281us  t_since_trigger=128ms
+TPM_08 clash 20: impact -> zone glow on blade = 137.2 ms, zone = BOTTOM
