@@ -1,4 +1,4 @@
-# Live test of the clash-location classifier
+# TPM_07 – Live test of the clash-location classifier
 
 Manual live test on the assembled lightsabre running the final firmware
 (`firmware/Lightsaber_Main`, model in `ClashModel.h`).
@@ -16,5 +16,6 @@ Files
 - `live_test_results.csv` – one row per clash: clash number, orientation,
   zone struck, strength, zone shown on the blade, correct (Y/N).
 - `live_test_log.xlsx` – original log with the summary sheet.
+- `TPM_07_clash_location_demo.mp4` – short demo: clashes in different blade zones and the clash glow shown in the classified zone.
 
 Note: clash 9 is logged as incorrect although the zone shown is recorded as Middle; it is counted as incorrect above. Clash 6 was not recorded.
