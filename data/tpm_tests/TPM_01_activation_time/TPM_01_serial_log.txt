@@ -1,0 +1,14 @@
+TPM_01 activation time - Serial Monitor output (115200 baud), 2026-10-11
+Firmware: Lightsaber_Main.ino with TIMING_TEST = 1
+Only the timing lines are listed; motion debug lines (Speed/Swing/...) are omitted.
+
+TPM_01 trial 1: press -> first LED = 1592.8 ms   (first ignition after "READY")
+TPM_01 trial 2: press -> first LED = 913.6 ms
+TPM_01 trial 3: press -> first LED = 820.6 ms
+TPM_01 trial 4: press -> first LED = 809.0 ms
+TPM_01 trial 5: press -> first LED = 869.5 ms
+TPM_01 trial 6: press -> first LED = 917.5 ms
+TPM_01 trial 7: press -> first LED = 816.4 ms
+TPM_01 trial 8: press -> first LED = 956.6 ms
+TPM_01 trial 9: press -> first LED = 809.1 ms
+TPM_01 trial 10: press -> first LED = 927.5 ms
