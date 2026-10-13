@@ -19,6 +19,7 @@ shown in that zone.
 | `data/live_test/` | Live test of the classifier on the lightsabre (59 clashes). |
 | `data/tpm_tests/` | Technical performance measure (TPM) test data. |
 | `data/blade_strength/` | Blade joint strength test data. |
+| `calculations/` | SMath Studio worksheet with the complete design calculations (Appendix D). |
 | `results/` | Figures and test predictions produced by `ClashPipeline.m`. |
 
 ## Clash-location classifier
