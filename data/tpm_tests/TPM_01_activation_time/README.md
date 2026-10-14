@@ -1,14 +1,10 @@
-# TPM_01 – Activation time
+# TPM_01 – How fast does it ignite?
 
-**Target:** activation time ≤ 1 s
+**Target:** ≤ 1 s from pressing the button to the blade lighting up
 
-**Method:** The blade was ignited 10 times with a long press (800 ms) of the
-encoder button. With `TIMING_TEST 1` in `Lightsaber_Main.ino`, the firmware
-records `micros()` when the button is pressed and prints the time to the first
-ignition LED frame on the Serial Monitor (115200 baud). A video of an ignition
-is included as a visual check.
-
-**Results (10 trials):**
+I ignited the blade 10 times with a long press (800 ms) on the encoder. With
+`TIMING_TEST 1`, the firmware notes `micros()` the moment the button goes down and
+prints the time until the first LED of the ignition lights up.
 
 | | All trials | Trials 2–10 |
 |---|---|---|
@@ -16,13 +12,10 @@ is included as a visual check.
 | Min | 809.0 ms | 809.0 ms |
 | Max | 1592.8 ms | 956.6 ms |
 | Std. dev. | 234.9 ms | 58.8 ms |
-| Trials ≤ 1 s | 9 / 10 | 9 / 9 |
+| ≤ 1 s | 9 / 10 | 9 / 9 |
 
-Trial 1 was the first ignition after power-up.
+Most of that time is the deliberate 800 ms hold. The one slow trial was the very
+first ignition after switching on, which is still a bit of a mystery worth chasing.
 
-**Files**
-
-- `TPM_01_activation_time.csv` – measured times per trial
-- `TPM_01_activation_time.xlsx` – data sheet with summary calculations
-- `TPM_01_serial_log.txt` – Serial Monitor output of the timing lines
-- `TPM_01_ignition_video.mp4` – video of an ignition
+**Files:** `TPM_01_activation_time.csv` (per trial) · `TPM_01_activation_time.xlsx`
+(summary) · `TPM_01_serial_log.txt` (raw log) · `TPM_01_ignition_video.mp4` (demo)

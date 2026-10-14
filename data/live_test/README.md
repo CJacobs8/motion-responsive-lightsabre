@@ -1,21 +1,24 @@
-# TPM_07 – Live test of the clash-location classifier
+# 🎯 TPM_07 – Live clash test
 
-Manual live test on the assembled lightsabre running the final firmware
-(`firmware/Lightsaber_Main`, model in `ClashModel.h`).
+The real test of the classifier: no recorded data, just the finished lightsabre
+running the final firmware (`firmware/Lightsaber_Main`, model in `ClashModel.h`).
+For each clash I was given a zone and a strength, hit that part of the blade, and
+wrote down where the clash glow appeared.
 
-For each clash, the prompted zone was struck with the given strength and the
-zone in which the clash glow appeared was recorded.
-
-| Orientation | Clashes | Correct | Accuracy |
+| Blade held | Clashes | Correct | Accuracy |
 |---|---|---|---|
 | Horizontal | 29 | 27 | 93.1 % |
 | Vertical | 30 | 27 | 90.0 % |
 | **Total** | **59** | **54** | **91.5 %** (95 % CI 81.6–96.3 %) |
 
-Files
-- `live_test_results.csv` – one row per clash: clash number, orientation,
-  zone struck, strength, zone shown on the blade, correct (Y/N).
-- `live_test_log.xlsx` – original log with the summary sheet.
-- `TPM_07_clash_location_demo.mp4` – short demo: clashes in different blade zones and the clash glow shown in the classified zone.
+That's comfortably above the 80 % target. On version 2 of the sabre, the same
+classifier got 57 of 59 right (96.6 %).
 
-Note: clash 9 is logged as incorrect although the zone shown is recorded as Middle; it is counted as incorrect above. Clash 6 was not recorded.
+<p align="center"><a href="TPM_07_clash_location_demo.mp4">▶️ Watch the demo video</a></p>
+
+**Files:** `live_test_results.csv` (one row per clash: number, orientation, zone hit,
+strength, zone shown, correct) · `live_test_log.xlsx` (original log with summary) ·
+`TPM_07_clash_location_demo.mp4`
+
+*Notes:* clash 9 is logged as incorrect even though the zone shown is recorded as
+middle, so it's counted as incorrect here. Clash 6 wasn't recorded.

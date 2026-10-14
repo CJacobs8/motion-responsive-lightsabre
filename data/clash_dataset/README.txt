@@ -48,6 +48,6 @@ NOTES
   - One clash in S01-S04 and V02 shows a ~454 Hz rate reading caused by a
     FIFO reset during logging; the samples themselves are sensor-clocked.
   - Final classifier: 74 FFT and time-domain features from a window of
-    8 samples before and 16 after the peak, gravity removed, multinomial
-    logistic regression (lambda = 0.01). Leave-one-session-out CV 82.2 %,
-    independent test (S04 + V03) 93.0 %.
+    8 samples before and 48 after the peak (112 ms), gravity removed,
+    multinomial logistic regression (lambda = 0.01). Leave-one-session-out
+    CV 85.4 %, independent test (S04 + V03) 97.2 %.
