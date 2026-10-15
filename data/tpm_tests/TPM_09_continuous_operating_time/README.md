@@ -2,23 +2,36 @@
 
 **Target:** at least 30 min of continuous use on one charge
 
-| LED brightness | Average battery current | Running time (until the BMS cut off) | Met? |
-|---|---|---|---|
-| 55 % | 2.61 A | 76 min | ✅ |
+| Version | LED brightness | Start voltage | Voltage at cut-off | Running time | Met? |
+|---|---|---|---|---|---|
+| 1 | 55 % | 8.4 V | 6.08 V | **≈ 300 min (5 h)** | ✅ |
 
-The raw voltage and current log of this test unfortunately wasn't kept, so only
-the summary values above (recorded during the test) are available.
+## How the test was done
 
-## Predicted discharge curve
+The 2S pack was fully charged to 8.4 V and the lightsabre was switched on with the
+default idle animation at 55 % brightness (21 °C ambient). The battery voltage and the
+5 V rail were read with a multimeter every 10 minutes until the BMS cut the pack off.
 
-To check that 76 minutes makes sense, `TPM_09_predicted_discharge.csv` and `.png`
-show a **calculated** discharge curve. **It is not measured data.** It assumes:
+After 300 min the battery reached 6.08 V (about 3.0 V per cell). Shortly after that the
+blade started switching on and off: each time the BMS cut the load, the cell voltage
+recovered a little (6.32 V at 304 min), the blade came back on and was cut off again.
+The test was stopped there, so the running time is taken as 300 min, the last reading
+under load. The 5 V rail stayed at 4.88 V for the whole test.
 
-- a 2S pack of Samsung INR18650-35E cells (3.4 Ah)
-- a constant 2.61 A (the measured average)
-- a typical cell voltage vs. depth-of-discharge profile for this cell type
-- about 35 mΩ internal resistance per cell
-- BMS cut-off at 6.0 V (3.0 V per cell)
+![Measured discharge curve](TPM_09_discharge_curve.png)
 
-With these assumptions, the predicted time to cut-off is about 76 min, in line
-with the measurement and with the simple estimate 3.4 Ah ÷ 2.61 A ≈ 78 min.
+## Why this is longer than the calculation in the report
+
+The calculated operating time (Section 4.6.2) is a worst case that assumes every LED
+is lit full white. In this test the blade ran the default idle animation, in which the
+pixels run below full brightness, and the firmware's default blade colour is red, so
+only one of the three LEDs in each pixel is lit. The average power drawn from the
+24.5 Wh pack was therefore only about 5 W.
+
+## Files
+
+| File | Contents |
+|---|---|
+| `TPM_09_continuous_operating_time.xlsx` | Test log with set-up, readings and summary |
+| `TPM_09_continuous_operating_time.csv` | The same readings as plain CSV |
+| `TPM_09_discharge_curve.png` | Battery voltage against time |

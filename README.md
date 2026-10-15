@@ -75,7 +75,7 @@ every response time with timestamps logged by the firmware itself.
 | Clash location – live on the sabre (v1 → v2) | **91.5 % → 96.6 %** |
 | Clash → glow in the right zone | **134 ms** on average (target ≤ 200 ms) |
 | Swing → sound | **139 ms** on average (target ≤ 200 ms) |
-| Battery life | **76 min** (target ≥ 30 min) |
+| Battery life | **≈ 5 h** at 55 % brightness (target ≥ 30 min) |
 
 As a sanity check, a model given *only* how hard each clash was scored 43.8 %
 (chance is 33 %), so the classifier really is listening to where the blade was hit,
