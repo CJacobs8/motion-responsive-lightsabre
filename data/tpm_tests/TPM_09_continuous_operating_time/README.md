@@ -8,6 +8,11 @@
 
 ## How the test was done
 
+![Test set-up: hilt opened and the 2S pack charged with the external CN3302 charger](TPM_09_test_setup.jpg)
+
+*The hilt was opened so the battery could be reached, and the 2S pack was charged to 8.4 V with the
+external CN3302 charger (red LED on) before the lightsabre was switched on for the test.*
+
 The 2S pack was fully charged to 8.4 V and the lightsabre was switched on with the
 default idle animation at 55 % brightness (21 °C ambient). The battery voltage and the
 5 V rail were read with a multimeter every 10 minutes until the BMS cut the pack off.
@@ -35,3 +40,4 @@ only one of the three LEDs in each pixel is lit. The average power drawn from th
 | `TPM_09_continuous_operating_time.xlsx` | Test log with set-up, readings and summary |
 | `TPM_09_continuous_operating_time.csv` | The same readings as plain CSV |
 | `TPM_09_discharge_curve.png` | Battery voltage against time |
+| `TPM_09_test_setup.jpg` | Photo of the test set-up |
