@@ -100,17 +100,20 @@ static inline const CCSample &ccAt(uint32_t absoluteIndex)
     return ccRing[absoluteIndex % CC_RING];
 }
 
+/** ccAccelMag(): Returns the acceleration magnitude |a| of one sample. */
 static inline float ccAccelMag(const CCSample &s)
 {
     return sqrtf(s.ax * s.ax + s.ay * s.ay + s.az * s.az);
 }
 
+/** ccSetTrigger(): Sets the clash trigger thresholds (acceleration level and jerk, in g). */
 static inline void ccSetTrigger(float thresholdG, float jerkG)
 {
     ccTriggerG = thresholdG;
     ccTriggerJerk = jerkG;
 }
 
+/** ccFindAnchor(): Finds the acceleration peak within CC_PEAK_SEARCH samples after the trigger; the classification window is aligned on it. */
 static uint32_t ccFindAnchor(uint32_t trigger)
 {
     uint32_t best = trigger;
@@ -124,6 +127,7 @@ static uint32_t ccFindAnchor(uint32_t trigger)
     return best;
 }
 
+/** ccPushSample(): Adds a sample to the ring buffer and checks the clash trigger (|a| above threshold and a sudden rise), outside the refractory period. */
 static void ccPushSample(const CCSample &s)
 {
     ccRing[ccTotal % CC_RING] = s;
@@ -152,6 +156,7 @@ static void ccPushSample(const CCSample &s)
     ccTotal++;
 }
 
+/** ccConsumeTrigger(): Returns true once for each new clash trigger (used to start the clash sound immediately). */
 static inline bool ccConsumeTrigger()
 {
     bool e = ccTriggerEvent;
@@ -159,6 +164,7 @@ static inline bool ccConsumeTrigger()
     return e;
 }
 
+/** ccExtractWindow(): Copies the classification window (pre samples before and post after the anchor) out of the ring buffer. */
 static bool ccExtractWindow(uint32_t anchor, int pre, int post, CCSample *out)
 {
     if (anchor < (uint32_t)pre) return false;
@@ -175,6 +181,7 @@ static float ccCos[CC_MAX_WIN];
 static float ccSin[CC_MAX_WIN];
 static int   ccTableN = 0;
 
+/** ccBuildTables(): Precomputes the sine and cosine tables for the DFT of the given length. */
 static void ccBuildTables(int n)
 {
     if (ccTableN == n) return;
@@ -187,6 +194,7 @@ static void ccBuildTables(int n)
     ccTableN = n;
 }
 
+/** ccSignalFeatures(): Calculates the nine features of one signal: mean, standard deviation, maximum absolute value, RMS, spectral centroid and four band energies. */
 static void ccSignalFeatures(const float *x, int n, float fs, float *f)
 {
 
@@ -265,6 +273,7 @@ static void ccSignalFeatures(const float *x, int n, float fs, float *f)
     f[4 + CC_NUM_BANDS] = magSum > 0 ? weighted / magSum : 0.0f;
 }
 
+/** ccComputeFeatures(): Builds the eight signals (gravity-corrected accelerations, angular velocities and their magnitudes) and calculates all 74 features. */
 static void ccComputeFeatures(const CCSample *win, int n, float *feat)
 {
     static float sig[CC_NUM_SIGNALS][CC_MAX_WIN];
@@ -291,6 +300,7 @@ static void ccComputeFeatures(const CCSample *win, int n, float *feat)
     feat[base + 1] = (float)(ig - ia) * 1000.0f / (float)CC_FS_HZ;
 }
 
+/** ccClassifyFeatures(): Standardises the features and applies the multinomial logistic regression model from ClashModel.h; returns the zone and its probabilities. */
 static int ccClassifyFeatures(const float *feat, float *prob)
 {
 #if CLASH_MODEL_TRAINED
@@ -324,6 +334,7 @@ static int ccClassifyFeatures(const float *feat, float *prob)
 #endif
 }
 
+/** ccPollClassification(): Once enough samples after a trigger have arrived, extracts the window, classifies it and returns the zone (or -1 if nothing is ready). */
 static int ccPollClassification(float *prob, float *featOut = nullptr)
 {
     if (!ccPending) return -1;
@@ -369,6 +380,7 @@ static int ccPollClassification(float *prob, float *featOut = nullptr)
 
 #ifdef ARDUINO
 
+/** ccWrite(): Writes one byte to an MPU6050 register. */
 static void ccWrite(TwoWire &w, uint8_t reg, uint8_t val)
 {
     w.beginTransmission(CC_MPU_ADDRESS);
@@ -377,6 +389,7 @@ static void ccWrite(TwoWire &w, uint8_t reg, uint8_t val)
     w.endTransmission();
 }
 
+/** ccRead8(): Reads one byte from an MPU6050 register. */
 static uint8_t ccRead8(TwoWire &w, uint8_t reg)
 {
     w.beginTransmission(CC_MPU_ADDRESS);
@@ -386,6 +399,7 @@ static uint8_t ccRead8(TwoWire &w, uint8_t reg)
     return w.available() ? w.read() : 0xFF;
 }
 
+/** ccFifoReset(): Resets and re-enables the MPU6050 FIFO. */
 static void ccFifoReset(TwoWire &w)
 {
     ccWrite(w, 0x6A, 0x04);   // USER_CTRL: FIFO_RESET
@@ -393,6 +407,7 @@ static void ccFifoReset(TwoWire &w)
     ccWrite(w, 0x6A, 0x40);   // USER_CTRL: FIFO_EN
 }
 
+/** ccMpuBegin(): Configures the MPU6050 for clash logging: 500 Hz, ±16 g, ±1000 °/s, FIFO enabled. */
 static bool ccMpuBegin(TwoWire &w)
 {
     ccWrite(w, 0x6B, 0x80);   // PWR_MGMT_1: device reset
@@ -410,6 +425,7 @@ static bool ccMpuBegin(TwoWire &w)
     return who != 0x00 && who != 0xFF;
 }
 
+/** ccMpuReadFifo(): Reads all complete samples from the MPU6050 FIFO into the ring buffer (resets the FIFO on overflow); returns the number read. */
 static int ccMpuReadFifo(TwoWire &w)
 {
     if (ccRead8(w, 0x3A) & 0x10)

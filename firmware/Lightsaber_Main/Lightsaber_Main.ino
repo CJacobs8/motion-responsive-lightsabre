@@ -105,6 +105,7 @@ CRGB leds[NUM_LEDS];
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 bool oledReady = false;
 
+/** selectOLEDI2C(): Switches the shared I2C peripheral to the OLED pins (GP20/GP21) at 400 kHz. */
 void selectOLEDI2C() {
     Wire.end();
     Wire.setSDA(OLED_SDA);
@@ -113,6 +114,7 @@ void selectOLEDI2C() {
     Wire.setClock(400000);
 }
 
+/** selectMPUI2C(): Switches the shared I2C peripheral back to the MPU6050 pins (GP4/GP5) at 400 kHz. */
 void selectMPUI2C() {
     Wire.end();
     Wire.setSDA(SDA_PIN);
@@ -204,12 +206,14 @@ bool retractAudioPlaying = false;
 void startIgniteAudio();
 void startRetractAudio();
 
+/** ledSmoothStep(): Smooth 0-1 easing curve (smoothstep) used for LED fades and ignition/retraction shaping. */
 float ledSmoothStep(float x)
 {
     x = constrain(x, 0.0f, 1.0f);
     return x * x * (3.0f - 2.0f * x);
 }
 
+/** makeAlivePixelDefault(): Returns the colour of one blade LED for the "Default" idle animation (smooth flowing plasma waves). */
 CRGB makeAlivePixelDefault(int pixel, int baseBrightness, uint8_t waveOffset)
 {
     float position =
@@ -309,23 +313,27 @@ void setClashVisualZone(int zone);
 void triggerClashVisual();
 void renderClashOverlay();
 
+/** setClashVisualZone(): Stores the blade zone (0 bottom, 1 middle, 2 top) where the next clash glow should appear. */
 void setClashVisualZone(int zone)
 {
     clashVisualZone = constrain(zone, 0, 2);
 }
 
+/** triggerClashVisual(): Starts the clash glow animation on the blade. */
 void triggerClashVisual()
 {
     clashVisualActive = true;
     clashVisualStart = millis();
 }
 
+/** clashSmooth(): Smoothstep easing used for the attack and release of the clash glow. */
 static inline float clashSmooth(float t)
 {
     t = constrain(t, 0.0f, 1.0f);
     return t * t * (3.0f - 2.0f * t);
 }
 
+/** renderClashOverlay(): Draws the clash glow over the blade: the struck zone flares white while the rest dims, then a soft ring moves outwards and fades. */
 void renderClashOverlay()
 {
     if (!clashVisualActive)
@@ -401,6 +409,7 @@ void renderClashOverlay()
     }
 }
 
+/** makeAlivePixelSet1(): Returns the colour of one blade LED for the "Broken Crystal" idle animation (irregular flicker and random power dips). */
 CRGB makeAlivePixelSet1(int pixel, int baseBrightness, uint8_t waveOffset)
 {
     int brightness = baseBrightness;
@@ -444,6 +453,7 @@ CRGB makeAlivePixelSet1(int pixel, int baseBrightness, uint8_t waveOffset)
     );
 }
 
+/** makeAlivePixelSet3(): Returns the colour of one blade LED for the "In-Between" idle animation (travelling power bands and short collapses). */
 CRGB makeAlivePixelSet3(int pixel, int baseBrightness, uint8_t waveOffset)
 {
     float position =
@@ -574,6 +584,7 @@ CRGB makeAlivePixelSet1(int pixel, int baseBrightness, uint8_t waveOffset);
 CRGB makeAlivePixelSet3(int pixel, int baseBrightness, uint8_t waveOffset);
 void renderIdleSet1(int activeLength);
 void renderIdleSet3(int activeLength);
+/** renderLivingBlade(): Draws the idle blade up to activeLength LEDs using the idle animation selected in the menu. */
 void renderLivingBlade(int activeLength)
 {
     if (idleAnimationMode == 0) renderIdleSet1(activeLength);
@@ -581,6 +592,7 @@ void renderLivingBlade(int activeLength)
     else renderDefaultLivingBlade(activeLength);
 }
 
+/** renderDefaultLivingBlade(): Fills the blade with the "Default" idle animation up to activeLength LEDs. */
 void renderDefaultLivingBlade(int activeLength)
 {
     activeLength = constrain(activeLength, 0, NUM_LEDS);
@@ -592,6 +604,7 @@ void renderDefaultLivingBlade(int activeLength)
     }
 }
 
+/** renderIdleSet1(): Fills the blade with the "Broken Crystal" idle animation up to activeLength LEDs. */
 void renderIdleSet1(int activeLength)
 {
     activeLength = constrain(activeLength, 0, NUM_LEDS);
@@ -603,6 +616,7 @@ void renderIdleSet1(int activeLength)
     }
 }
 
+/** renderIdleSet3(): Fills the blade with the "In-Between" idle animation up to activeLength LEDs, with random bright clusters. */
 void renderIdleSet3(int activeLength)
 {
     activeLength = constrain(activeLength, 0, NUM_LEDS);
@@ -628,6 +642,7 @@ void renderIdleSet3(int activeLength)
     }
 }
 
+/** renderSwingOverlay(): Adds the swing effect on top of the idle blade: a travelling energy band whose strength and speed follow the swing volume and gyro speed. */
 void renderSwingOverlay()
 {
 
@@ -828,6 +843,7 @@ void renderSwingOverlay()
     }
 }
 
+/** renderTipDrag(): Draws the flickering tip-drag effect at the end of the blade when tip drag is enabled. */
 void renderTipDrag()
 {
     if (!ledTipDrag)
@@ -880,6 +896,7 @@ void renderTipDrag()
     }
 }
 
+/** makeSelectedColourEnergy(): Returns the selected blade colour blended towards white by "amount", used for hot highlights. */
 CRGB makeSelectedColourEnergy(float amount, uint8_t brightness = 255)
 {
     amount = constrain(amount, 0.0f, 1.0f);
@@ -902,6 +919,7 @@ CRGB makeSelectedColourEnergy(float amount, uint8_t brightness = 255)
     return result;
 }
 
+/** updateBladeIgnition(): Advances the ignition animation: the blade grows from the hilt to the tip with a white leading LED, then switches to the ON state. */
 void updateBladeIgnition()
 {
 
@@ -987,6 +1005,7 @@ void updateBladeIgnition()
     }
 }
 
+/** updateBladeRetraction(): Advances the retraction animation: the blade shrinks back to the hilt, then switches to the OFF state. */
 void updateBladeRetraction()
 {
 
@@ -1053,6 +1072,7 @@ void updateBladeRetraction()
     }
 }
 
+/** triggerBladeIgnite(): Starts ignition: sets the blade state, resets swing state and starts the ignition sound. */
 void triggerBladeIgnite()
 {
     bladePowerState = LED_POWER_IGNITING;
@@ -1066,6 +1086,7 @@ void triggerBladeIgnite()
     startIgniteAudio();
 }
 
+/** triggerBladeRetract(): Starts retraction: fades out the ignition sound, sets the blade state and starts the power-off sound. */
 void triggerBladeRetract()
 {
     ledTipDrag = false;
@@ -1081,6 +1102,7 @@ void triggerBladeRetract()
     startRetractAudio();
 }
 
+/** updateBladeLEDs(): Renders one LED frame (every LED_FRAME_MS): ignition, retraction or the ON state with idle, swing, tip-drag and clash layers. */
 void updateBladeLEDs()
 {
     unsigned long now = millis();
@@ -1132,6 +1154,7 @@ void updateBladeLEDs()
     FastLED.show();
 }
 
+/** checkBladeSerialCommands(): Handles single-character test commands from the Serial Monitor (I ignite, R retract, C clash, D/S tip drag). */
 void checkBladeSerialCommands()
 {
     while (Serial.available())
@@ -1356,6 +1379,7 @@ float limiterEnvelope = 0.0f;
 float limiterAttackCoeff = 0.0f;
 float limiterReleaseCoeff = 0.0f;
 
+/** clampFloat(): Limits a value to the range [minimum, maximum]. */
 float clampFloat(
     float value,
     float minimum,
@@ -1371,6 +1395,7 @@ float clampFloat(
     return value;
 }
 
+/** smoothStep(): Smoothstep easing of a value clamped to 0-1. */
 float smoothStep(
     float value
 )
@@ -1392,6 +1417,7 @@ float smoothStep(
         );
 }
 
+/** writeMPU(): Writes one byte to an MPU6050 register over I2C. */
 void writeMPU(
     uint8_t reg,
     uint8_t value
@@ -1412,6 +1438,7 @@ void writeMPU(
     Wire.endTransmission();
 }
 
+/** readGyro(): Reads new samples from the MPU6050 FIFO, removes the gyro bias, low-pass filters the gyro axes and updates the acceleration magnitude and jerk. */
 void readGyro()
 {
     if (ccMpuReadFifo(Wire) == 0)
@@ -1456,6 +1483,7 @@ void readGyro()
     previousAccelMagnitude = newMagnitude;
 }
 
+/** calibrateGyro(): Averages stationary gyro readings at start-up to find the bias of each axis (keep the sabre still). */
 void calibrateGyro()
 {
     Serial.println();
@@ -1566,6 +1594,7 @@ void calibrateGyro()
     );
 }
 
+/** read16(): Reads a little-endian 16-bit value from a file (used when parsing WAV headers). */
 uint16_t read16(
     File &file
 )
@@ -1589,6 +1618,7 @@ uint16_t read16(
         );
 }
 
+/** read32(): Reads a little-endian 32-bit value from a file (used when parsing WAV headers). */
 uint32_t read32(
     File &file
 )
@@ -1632,6 +1662,7 @@ uint32_t read32(
         );
 }
 
+/** findWavData(): Parses a WAV file header and returns where the sample data starts, its size, sample rate, channels and bit depth. */
 bool findWavData(
     File &file,
     uint32_t &dataStart,
@@ -1829,6 +1860,7 @@ bool findWavData(
         dataFound;
 }
 
+/** readSamplesAt(): Reads a block of 16-bit samples from a WAV file starting at a given sample index. */
 bool readSamplesAt(
     File &file,
     uint32_t dataStart,
@@ -1909,6 +1941,7 @@ bool readSamplesAt(
     return true;
 }
 
+/** closeStreamClip(): Closes a streamed audio clip and resets its buffers. */
 void closeStreamClip(
     StreamClip &clip
 )
@@ -1931,6 +1964,7 @@ void closeStreamClip(
         0;
 }
 
+/** openStreamClip(): Opens a looping WAV file from the SD card, caches its first and last samples for seamless looping and fills the streaming buffer. */
 bool openStreamClip(
     const char *filename,
     StreamClip &clip
@@ -2145,6 +2179,7 @@ bool openStreamClip(
     return true;
 }
 
+/** getPowerShotPlaybackPosition(): Returns the current playback position of the ignition or power-off sound. */
 float getPowerShotPlaybackPosition(bool ignite)
 {
     if (ignite)
@@ -2152,6 +2187,7 @@ float getPowerShotPlaybackPosition(bool ignite)
     return retractShot.position;
 }
 
+/** closePowerShot(): Closes a power sound (ignition or power-off) and resets its state. */
 void closePowerShot(PowerShotClip &clip)
 {
     if (clip.file)
@@ -2167,6 +2203,7 @@ void closePowerShot(PowerShotClip &clip)
     clip.bufferFilled = 0;
 }
 
+/** openPowerShot(): Opens a power sound and loads it completely into RAM (or uses the buffer as a streaming window if it is too long). */
 bool openPowerShot(const char *filename, PowerShotClip &clip)
 {
     closePowerShot(clip);
@@ -2264,6 +2301,7 @@ bool openPowerShot(const char *filename, PowerShotClip &clip)
     return true;
 }
 
+/** rewindStreamedPowerShot(): Reloads the start of a streamed power sound so it can be replayed from the beginning. */
 static void rewindStreamedPowerShot(PowerShotClip &clip)
 {
     if (clip.fullyLoaded || clip.bufferStart == 0)
@@ -2283,6 +2321,7 @@ static void rewindStreamedPowerShot(PowerShotClip &clip)
     clip.bufferFilled = initial;
 }
 
+/** startPowerShot(): Starts playing a power sound from a given sample, with a short fade-in to avoid clicks. */
 void startPowerShot(PowerShotClip &clip, uint32_t startSample)
 {
     if (!clip.loaded || clip.sampleCount == 0)
@@ -2297,12 +2336,14 @@ void startPowerShot(PowerShotClip &clip, uint32_t startSample)
     clip.active = true;
 }
 
+/** stopPowerShot(): Fades a power sound out instead of cutting it off. */
 void stopPowerShot(PowerShotClip &clip)
 {
     if (clip.active)
         clip.stopping = true;
 }
 
+/** startIgniteAudio(): Plays the ignition sound (and fades out the power-off sound if it is still playing). */
 void startIgniteAudio()
 {
     if (!igniteShot.loaded)
@@ -2313,6 +2354,7 @@ void startIgniteAudio()
     startPowerShot(igniteShot, IGNITE_AUDIO_START_SAMPLE);
 }
 
+/** startRetractAudio(): Plays the power-off sound (and fades out the ignition sound if it is still playing). */
 void startRetractAudio()
 {
     if (!retractShot.loaded)
@@ -2326,6 +2368,7 @@ void startRetractAudio()
     retractAudioPlaying = true;
 }
 
+/** refillPowerShot(): Tops up the buffer of a streamed power sound from the SD card before playback reaches the end of it. */
 void refillPowerShot(PowerShotClip &clip)
 {
     if (!clip.loaded || !clip.active || clip.fullyLoaded)
@@ -2373,6 +2416,7 @@ void refillPowerShot(PowerShotClip &clip)
     clip.bufferFilled = keep + amount;
 }
 
+/** powerShotRawSample(): Returns one buffered sample of a power sound, or silence if it is outside the buffer. */
 static inline float powerShotRawSample(const PowerShotClip &clip, uint32_t index)
 {
     if (index < clip.bufferStart ||
@@ -2382,6 +2426,7 @@ static inline float powerShotRawSample(const PowerShotClip &clip, uint32_t index
     return (float)clip.buffer[index - clip.bufferStart];
 }
 
+/** finishPowerShot(): Marks a power sound as finished. */
 static void finishPowerShot(PowerShotClip &clip)
 {
     clip.active = false;
@@ -2392,6 +2437,7 @@ static void finishPowerShot(PowerShotClip &clip)
         retractAudioPlaying = false;
 }
 
+/** getPowerShotSample(): Returns the next interpolated sample of a power sound, applying the fade envelope. */
 float getPowerShotSample(PowerShotClip &clip)
 {
     if (!clip.loaded || !clip.active)
@@ -2436,6 +2482,7 @@ float getPowerShotSample(PowerShotClip &clip)
     return sample * clip.gain * endGain;
 }
 
+/** refillStreamClip(): Tops up the streaming buffer of a looping clip (hum or swing) from the SD card ahead of the playback position. */
 void refillStreamClip(
     StreamClip &clip
 )
@@ -2564,6 +2611,7 @@ void refillStreamClip(
         STREAM_BUFFER_SAMPLES;
 }
 
+/** resetStreamForLoop(): Resets the streaming window when a looping clip wraps back to its start. */
 void resetStreamForLoop(
     StreamClip &clip
 )
@@ -2635,6 +2683,7 @@ void resetStreamForLoop(
         initialFill;
 }
 
+/** readClipSample(): Returns one sample of a streamed clip from the head cache, tail cache or streaming buffer. */
 inline int16_t readClipSample(
     StreamClip &clip,
     uint32_t index
@@ -2701,6 +2750,7 @@ inline int16_t readClipSample(
     return 0;
 }
 
+/** getLoopedSample(): Returns the next sample of a looping clip at a given playback rate, crossfading the end into the start so the loop is seamless. */
 float getLoopedSample(
     StreamClip &clip,
     float rate,
@@ -2914,6 +2964,7 @@ float getLoopedSample(
     return sample;
 }
 
+/** openClashClip(): Opens the clash sound and loads its impact portion into RAM so a clash never waits for the SD card. */
 bool openClashClip(
     const char *filename
 )
@@ -3095,10 +3146,12 @@ bool openClashClip(
     return true;
 }
 
+/** refillClashClip(): Kept for compatibility; the clash sound is fully in RAM so nothing needs refilling. */
 void refillClashClip()
 {
 }
 
+/** getClashSample(): Returns the next sample of the clash sound while it is playing. */
 float getClashSample()
 {
     if (
@@ -3155,6 +3208,7 @@ float getClashSample()
     return sample;
 }
 
+/** triggerClash(): Starts the clash sound (with a cooldown so one impact does not retrigger). */
 void triggerClash()
 {
     unsigned long now =
@@ -3183,10 +3237,12 @@ void triggerClash()
     );
 }
 
+/** selectNewSwingPair(): Kept for compatibility; only one swing pair is used, so nothing is selected here. */
 void selectNewSwingPair()
 {
 }
 
+/** openSwingPair(): Opens the low and high swing sound files of a swing pair from the SD card. */
 bool openSwingPair(int pairNumber)
 {
     if (pairNumber < 1 || pairNumber > NUMBER_OF_SWING_PAIRS)
@@ -3264,10 +3320,12 @@ bool openSwingPair(int pairNumber)
     return true;
 }
 
+/** checkPairSelection(): Kept for compatibility; swing pair selection is fixed. */
 void checkPairSelection()
 {
 }
 
+/** startMovement(): Marks the start of a swing and resets the rotation and spin tracking. */
 void startMovement()
 {
     isMoving =
@@ -3290,6 +3348,7 @@ void startMovement()
     );
 }
 
+/** stopMovement(): Marks the end of a swing. */
 void stopMovement()
 {
     isMoving =
@@ -3306,6 +3365,7 @@ void stopMovement()
     );
 }
 
+/** updateMotion(): Reads the sensor and runs the motion logic: gyro speed, swing start/stop thresholds, spin detection and clash triggers from the classifier. */
 void updateMotion()
 {
     readGyro();
@@ -3479,6 +3539,7 @@ void updateMotion()
     }
 }
 
+/** updateAudioControl(): Converts the motion into audio parameters: swing volume and playback rate, hum ducking and the low/high swing blend (SmoothSwing). */
 void updateAudioControl()
 {
 
@@ -3787,6 +3848,7 @@ void updateAudioControl()
 #define AMBIENT_FADE_OUT_STEP (1.0f / (AUDIO_RATE * 0.03f))  // 30 ms
 float ambientGain = 0.0f;
 
+/** outputAudio(): Produces one audio sample by mixing hum, swing, clash and power sounds, applies the limiter and writes it to the I2S amplifier. */
 void outputAudio()
 {
 
@@ -3959,6 +4021,7 @@ void outputAudio()
 
 #define AUDIO_BATCH_MAX 256
 
+/** serviceAudio(): Writes as many audio samples as the I2S buffers have room for, so playback never runs dry between other tasks. */
 void serviceAudio(bool atLeastOne)
 {
     int room = i2s.availableForWrite() / 4;
@@ -3973,6 +4036,7 @@ void serviceAudio(bool atLeastOne)
         outputAudio();
 }
 
+/** drawCentredText(): Draws a line of text centred horizontally on the OLED. */
 void drawCentredText(const char *text, int y)
 {
     int16_t x1,y1; uint16_t w,h;
@@ -3981,6 +4045,7 @@ void drawCentredText(const char *text, int y)
     display.setCursor(x,y); display.print(text);
 }
 
+/** drawSaberScreen(): Draws the default OLED screen with the blade status and a small blade-length bar. */
 void drawSaberScreen(const char *status, int bladeLength)
 {
     if (!oledReady) return;
@@ -3993,12 +4058,14 @@ void drawSaberScreen(const char *status, int bladeLength)
     display.drawFastVLine(7,13,7,SSD1306_BLACK); display.drawFastVLine(12,13,7,SSD1306_BLACK); display.drawFastVLine(17,13,7,SSD1306_BLACK);
     drawCentredText(status,24); display.display(); selectMPUI2C();
 }
+/** drawMainMenuScreen(): Draws the main menu on the OLED (menu number and title). */
 void drawMainMenuScreen(){
     if (!oledReady) return;
     selectOLEDI2C();
     display.clearDisplay(); display.setTextColor(SSD1306_WHITE); display.setTextSize(1); display.setTextWrap(false);
     char header[20]; snprintf(header,sizeof(header),"< MENU %d >",selectedMenu+1); drawCentredText(header,0); display.drawFastHLine(0,9,SCREEN_WIDTH,SSD1306_WHITE); drawCentredText(menus[selectedMenu].title,13); drawCentredText("< CW / CCW >",24); display.display(); selectMPUI2C();
 }
+/** drawSubMenuScreen(): Draws the options of the selected menu on the OLED, including percentage bars for brightness and volume. */
 void drawSubMenuScreen(){
     if (!oledReady) return;
 
@@ -4046,6 +4113,7 @@ void drawSubMenuScreen(){
     display.display();
     selectMPUI2C();
 }
+/** drawSelectedScreen(): Draws the confirmation screen after a menu option is selected. */
 void drawSelectedScreen()
 {
     if (!oledReady) return;
@@ -4079,6 +4147,7 @@ void drawSelectedScreen()
     display.display();
     selectMPUI2C();
 }
+/** updateOLEDPowerScreen(): Updates the OLED blade animation during ignition and retraction. */
 void updateOLEDPowerScreen()
 {
     unsigned long elapsed =
@@ -4203,6 +4272,7 @@ void updateOLEDPowerScreen()
         bladeLength
     );
 }
+/** applyMenuSelection(): Applies the selected menu option (colour, brightness, volume, idle animation or sensitivity). */
 void applyMenuSelection(){
     switch(selectedMenu){
       case 0:
@@ -4228,6 +4298,7 @@ void applyMenuSelection(){
     }
     oledNeedsRedraw=true;
 }
+/** updateEncoder(): Reads the rotary encoder (quadrature decoding with debouncing) and moves through the menu options. */
 void updateEncoder()
 {
 
@@ -4315,6 +4386,7 @@ void updateEncoder()
     }
 
 }
+/** handleMenuButton(): Reads the encoder push button: a short press enters or confirms a menu, an 800 ms long press ignites or retracts the blade. */
 void handleMenuButton(){
     static bool lastButtonState = HIGH;
     bool currentButtonState = digitalRead(ENCODER_SW);
@@ -4391,6 +4463,7 @@ void handleMenuButton(){
 
     lastButtonState = currentButtonState;
 }
+/** updateMenuDisplay(): Redraws the OLED only when its content has changed, so the shared I2C bus stays free for the motion sensor. */
 void updateMenuDisplay(){
     if (!oledReady) return;
 
@@ -4440,6 +4513,7 @@ void updateMenuDisplay(){
     }
 }
 
+/** setup(): Initialises the serial port, I2C, MPU6050 and classifier, LEDs, OLED, SD card, audio files and I2S, then calibrates the gyro. */
 void setup()
 {
     Serial.begin(
@@ -4886,6 +4960,7 @@ void setup()
     updateMenuDisplay();
 }
 
+/** loop(): Main control loop: reads the inputs, updates motion, audio and classification, and refreshes the LEDs, audio buffers and OLED. */
 void loop()
 {
     updateEncoder();

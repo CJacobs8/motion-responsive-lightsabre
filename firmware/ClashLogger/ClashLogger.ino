@@ -66,6 +66,7 @@ unsigned long rateStartMs = 0;
 uint32_t rateStartTotal = 0;
 float measuredFs = 0;
 
+/** mpuWrite(): Writes one byte to an MPU6050 register. */
 void mpuWrite(uint8_t reg, uint8_t val)
 {
     Wire.beginTransmission(MPU_ADDR);
@@ -74,6 +75,7 @@ void mpuWrite(uint8_t reg, uint8_t val)
     Wire.endTransmission();
 }
 
+/** mpuRead8(): Reads one byte from an MPU6050 register. */
 uint8_t mpuRead8(uint8_t reg)
 {
     Wire.beginTransmission(MPU_ADDR);
@@ -83,6 +85,7 @@ uint8_t mpuRead8(uint8_t reg)
     return Wire.available() ? Wire.read() : 0xFF;
 }
 
+/** fifoReset(): Resets and re-enables the MPU6050 FIFO. */
 void fifoReset()
 {
     mpuWrite(0x6A, 0x04);   // FIFO reset
@@ -90,12 +93,14 @@ void fifoReset()
     mpuWrite(0x6A, 0x40);   // FIFO enable
 }
 
+/** i2cPresent(): Returns true if a device answers at the given I2C address. */
 bool i2cPresent(uint8_t addr)
 {
     Wire.beginTransmission(addr);
     return Wire.endTransmission() == 0;
 }
 
+/** i2cScan(): Prints the addresses of all I2C devices found (used when the MPU6050 is not detected). */
 void i2cScan()
 {
     Serial.print("#INFO,I2C devices on GP4/GP5:");
@@ -105,6 +110,7 @@ void i2cScan()
     Serial.println(any ? "" : " none - check wiring/power");
 }
 
+/** mpuBegin(): Finds and configures the MPU6050: 500 Hz, ±16 g, ±1000 °/s, FIFO enabled. */
 bool mpuBegin()
 {
     if (i2cPresent(0x68)) MPU_ADDR = 0x68;
@@ -143,6 +149,7 @@ inline Sample &at(uint32_t i) { return ring[i % RING]; }
 inline float accelMag(const Sample &s) { return sqrtf(s.ax*s.ax + s.ay*s.ay + s.az*s.az); }
 inline float gyroMag(const Sample &s)  { return sqrtf(s.gx*s.gx + s.gy*s.gy + s.gz*s.gz); }
 
+/** pushSample(): Adds a sample to the ring buffer and checks the clash trigger. */
 void pushSample(const Sample &s)
 {
     ring[total % RING] = s;
@@ -161,6 +168,7 @@ void pushSample(const Sample &s)
     total++;
 }
 
+/** readFifo(): Reads all complete samples from the MPU6050 FIFO (resets it on overflow). */
 void readFifo()
 {
     if (mpuRead8(0x3A) & 0x10)      // overflow
@@ -206,6 +214,7 @@ void readFifo()
     }
 }
 
+/** updateRate(): Measures the actual sample rate every 2 s. */
 void updateRate()
 {
     unsigned long now = millis();
@@ -217,6 +226,7 @@ void updateRate()
     }
 }
 
+/** newBlock(): Creates a new shuffled block of 36 prompts covering every zone, strength and blade face once. */
 void newBlock()
 {
     int n = 0;
@@ -235,6 +245,7 @@ void newBlock()
     Serial.println(blockNumber);
 }
 
+/** showZone(): Lights the zone to strike on the blade. */
 void showZone(int zone)
 {
     fill_solid(leds, NUM_LEDS, CRGB::Black);
@@ -245,6 +256,7 @@ void showZone(int zone)
     FastLED.show();
 }
 
+/** flash(): Briefly flashes the whole blade in a colour (feedback for saved or rejected clashes). */
 void flash(CRGB c)
 {
     fill_solid(leds, NUM_LEDS, c);
@@ -252,6 +264,7 @@ void flash(CRGB c)
     delay(100);
 }
 
+/** announce(): Shows and prints the next prompted zone, strength and face. */
 void announce()
 {
     showZone(current.zone);
@@ -263,6 +276,7 @@ void announce()
     Serial.println(BLOCK_SIZE);
 }
 
+/** nextPrompt(): Moves to the next prompt in the block. */
 void nextPrompt()
 {
     redoActive = false;
@@ -271,6 +285,7 @@ void nextPrompt()
     announce();
 }
 
+/** deferCurrent(): Moves the current prompt to the end of the block (skip for now). */
 void deferCurrent()
 {
     if (redoActive) { Serial.println("#INFO,finish the repeated strike first"); return; }
@@ -282,6 +297,7 @@ void deferCurrent()
     announce();
 }
 
+/** rejectLast(): Rejects the last saved clash (missed or double strike) so it is repeated. */
 void rejectLast()
 {
     if (!lastRejectable) return;
@@ -295,6 +311,7 @@ void rejectLast()
     announce();
 }
 
+/** findAnchor(): Finds the acceleration peak after a trigger and returns its index and value. */
 uint32_t findAnchor(uint32_t trig, float &peak)
 {
     uint32_t best = trig;
@@ -307,6 +324,7 @@ uint32_t findAnchor(uint32_t trig, float &peak)
     return best;
 }
 
+/** printClash(): Sends one labelled clash window (64 samples before and 192 after the peak) to MATLAB over serial. */
 void printClash(float peak)
 {
     float preGyro = 0;
@@ -335,6 +353,7 @@ void printClash(float peak)
     Serial.println("#END");
 }
 
+/** printStatus(): Prints the trigger settings, sample rate and clash count. */
 void printStatus()
 {
     Serial.print("#STATUS,trigger_g=");  Serial.print(triggerG, 2);
@@ -345,6 +364,7 @@ void printStatus()
     Serial.print(",overflows=");         Serial.println(overflows);
 }
 
+/** handleSerial(): Handles commands from MATLAB or the Serial Monitor: x reject, n skip, p pause, s status, ? repeat prompt, t/j set the trigger thresholds. */
 void handleSerial()
 {
     while (Serial.available())
@@ -360,6 +380,7 @@ void handleSerial()
     }
 }
 
+/** setup(): Initialises serial, LEDs, encoder button and MPU6050, then shows the first prompt. */
 void setup()
 {
     Serial.begin(115200);
@@ -397,6 +418,7 @@ void setup()
     nextPrompt();
 }
 
+/** loop(): Reads the sensor, detects clashes, sends each labelled window and handles the reject button. */
 void loop()
 {
     handleSerial();

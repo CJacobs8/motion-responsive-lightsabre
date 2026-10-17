@@ -2,7 +2,7 @@
 
 **Target:** ≤ 1 s from pressing the button to the blade lighting up
 
-I ignited the blade 10 times with a long press (800 ms) on the encoder. With
+I ignited the blade 10 times with a long press (800 ms) on the push button of the rotary encoder, which is the ignition button on the hilt. With
 `TIMING_TEST 1`, the firmware notes `micros()` the moment the button goes down and
 prints the time until the first LED of the ignition lights up.
 

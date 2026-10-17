@@ -28,6 +28,7 @@ static bool     ltAwaiting     = false; // trigger seen, waiting for zone
 static uint32_t ltTrigMicros   = 0;
 static uint32_t ltLastLogMs    = 0;     // time of the last logged clash
 
+/** ltBuildOrder(): Builds a random order of prompted clashes, balanced over zone and strength in blocks of nine. */
 static void ltBuildOrder()
 {
     randomSeed(micros() ^ analogRead(26) ^ (analogRead(27) << 8));
@@ -43,6 +44,7 @@ static void ltBuildOrder()
     }
 }
 
+/** ltPrompt(): Prints the next zone and strength to strike. */
 static void ltPrompt()
 {
     if (ltDone) return;
@@ -59,6 +61,7 @@ static void ltPrompt()
     Serial.println(')');
 }
 
+/** ltPrintSummary(): Prints the live test confusion matrix, accuracy and glow delay statistics. */
 static void ltPrintSummary()
 {
     int conf[3][4] = {{0}};   // columns: bottom, middle, top, no zone
@@ -111,6 +114,7 @@ static void ltPrintSummary()
     Serial.println("===================================================");
 }
 
+/** ltPrintCsv(): Prints every logged clash as CSV for copying into a spreadsheet. */
 static void ltPrintCsv()
 {
     Serial.println();
@@ -131,6 +135,7 @@ static void ltPrintCsv()
     Serial.println("#CSV_END");
 }
 
+/** ltLog(): Records the result of one prompted clash (true zone, predicted zone, probabilities, peak and delay). */
 static void ltLog(int predZone, const float *prob, float peakG, float delayMs)
 {
     if (ltDone || !ltStarted) return;
@@ -177,6 +182,7 @@ static void ltLog(int predZone, const float *prob, float peakG, float delayMs)
     }
 }
 
+/** liveTestUpdate(): Starts the live test after power-up and prints the first prompt. */
 static void liveTestUpdate()
 {
     if (!ltStarted && millis() > 3000)
@@ -198,6 +204,7 @@ static void liveTestUpdate()
     }
 }
 
+/** liveTestOnTrigger(): Notes the time of a clash trigger (extra triggers from the same strike are ignored). */
 static void liveTestOnTrigger()
 {
     if (ltAwaiting || millis() - ltLastLogMs < LT_LOCKOUT_MS)
@@ -209,6 +216,7 @@ static void liveTestOnTrigger()
     ltAwaiting = true;
 }
 
+/** liveTestOnZone(): Logs the classified zone for the current prompt and moves to the next one. */
 static void liveTestOnZone(int zone, const float *prob, float peakG)
 {
     if (!ltAwaiting) return;            // zone of an ignored trigger
@@ -217,6 +225,7 @@ static void liveTestOnZone(int zone, const float *prob, float peakG)
     ltLog(zone, prob, peakG, delayMs);
 }
 
+/** liveTestHandleChar(): Handles live test commands from the Serial Monitor: x rejects the last clash, m marks a missed (undetected) clash, ? repeats the prompt and p prints the summary and CSV. */
 static bool liveTestHandleChar(char c)
 {
     if (c == 'x' || c == 'X')

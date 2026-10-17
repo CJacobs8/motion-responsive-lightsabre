@@ -4,7 +4,7 @@
 
 | Version | LED brightness | Start voltage | Voltage at cut-off | Running time | Met? |
 |---|---|---|---|---|---|
-| 1 | 55 % | 8.4 V | 6.08 V | **≈ 300 min (5 h)** | ✅ |
+| 1 | 55 % | 8.4 V | 6.08 V | **≈ 300 min (5 h)** | Yes |
 
 ## How the test was done
 
