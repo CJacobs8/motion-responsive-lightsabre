@@ -48,6 +48,10 @@ the handle.
 - **Has a little menu** on a 128 × 32 OLED screen to change colour, brightness, volume,
   idle animation and sensitivity with one rotary knob.
 
+<p align="center">
+<img src="docs/media/oled_menu.jpg" width="420" alt="OLED screen showing the LIGHTSABER READY start-up screen">
+</p>
+
 ## How it works
 
 ```mermaid

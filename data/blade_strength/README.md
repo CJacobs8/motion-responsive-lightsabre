@@ -1,4 +1,4 @@
-# 💥 Blade strength
+# Blade strength
 
 There was no separate "smash it until it breaks" test. The blade's strength was put
 to the test simply by recording the clash dataset: hundreds of light, medium and hard

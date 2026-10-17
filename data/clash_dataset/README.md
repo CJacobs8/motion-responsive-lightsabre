@@ -1,4 +1,4 @@
-# 🗂️ Clash dataset
+# Clash dataset
 
 This is the heart of the clash classifier: **605 labelled clashes**, every one of them
 a real swing onto a broomstick clamped to a table, recorded with the MPU6050 inside
